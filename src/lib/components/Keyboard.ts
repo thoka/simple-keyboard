@@ -1982,12 +1982,59 @@ class SimpleKeyboard {
           const buttonUID = `${this.options.layoutName}-r${rIndex}b${bIndex}`;
           buttonDOM.setAttribute("data-skBtnUID", buttonUID);
 
-          /**
-           * Adding button label to button
-           */
-          const buttonSpanDOM = document.createElement("span");
-          buttonSpanDOM.innerHTML = buttonDisplayName;
-          buttonDOM.appendChild(buttonSpanDOM);
+          const extra = {
+            "1" : { shift: "!" },
+            "2" : { shift: "\"", alt: "²" },
+            "3" : { shift: "§", alt: "³" },
+            "4" : { shift: "$"},
+            "5" : { shift: "%"},
+            "6" : { shift: "&"},
+            "7" : { shift: "/", alt:"{" },
+            "8" : { shift: "(", alt:"[" },
+            "9" : { shift: ")", alt:"]" },
+            "0" : { shift: "=", alt:"}" },
+            "ß" : { shift: "?", alt:"\\" },
+            "´" : { shift: "`" },
+            "-" : { shift: "_"},
+            "," : { shift: ";"},
+            "." : { shift: ":"},  
+            "<" : { shift: ">", alt:"|"},
+            "q" : { alt:"@" },
+            "e" : { alt:"€" },
+          }
+
+          if (extra[button]) {
+            const buttonOptions = extra[button];
+
+            if (buttonOptions.shift) {
+              const buttonSpanDOM = document.createElement("span");
+              buttonSpanDOM.innerHTML = buttonDisplayName;
+              buttonSpanDOM.className = "unshifted";
+              buttonDOM.appendChild(buttonSpanDOM);
+              const shiftSpan = document.createElement("span");
+              shiftSpan.innerHTML = buttonOptions.shift;
+              shiftSpan.className = "shifted";
+              buttonDOM.appendChild(shiftSpan);
+            } else {
+              const buttonSpanDOM = document.createElement("span");
+              buttonSpanDOM.innerHTML = buttonDisplayName;
+              buttonSpanDOM.className = "main";
+              buttonDOM.appendChild(buttonSpanDOM);
+            }
+
+            if (buttonOptions.alt) {
+              const altSpan = document.createElement("span");
+              altSpan.innerHTML = buttonOptions.alt;
+              altSpan.className = "alt";
+              buttonDOM.appendChild(altSpan);
+            }
+          } else {
+            const buttonSpanDOM = document.createElement("span");
+            const name = buttonDisplayName.length==1 ? buttonDisplayName.toUpperCase() : buttonDisplayName;
+            buttonSpanDOM.innerHTML = name;
+            buttonSpanDOM.className = "main";
+            buttonDOM.appendChild(buttonSpanDOM);
+          }
 
           /**
            * Adding to buttonElements

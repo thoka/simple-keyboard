@@ -28,8 +28,8 @@ class PhysicalKeyboard {
     const options = this.getOptions();
 
     if(options.physicalKeyboardHighlightPreventDefault && this.isModifierKey(e)){
-      e.preventDefault();
       e.stopImmediatePropagation();
+      e.preventDefault();
     }
 
     const buttonPressed = this.getSimpleKeyboardLayoutKey(e);
@@ -99,6 +99,8 @@ class PhysicalKeyboard {
     }
     
     const buttonPressed = this.getSimpleKeyboardLayoutKey(e);
+    console.log("##",buttonPressed);
+
 
     this.dispatch((instance: any) => {
       const buttonDOM =
@@ -147,7 +149,11 @@ class PhysicalKeyboard {
       keyId?.includes("Alt") ||
       keyId?.includes("Meta")
     ) {
-      output = e.code || "";
+      if (e.key == "AltGraph") {
+        output = "AltGraph"
+      } else {
+        output = e.code || "";
+      }
     } else {
       output = e.key || this.keyCodeToKey(e?.keyCode) || "";
     }
@@ -216,7 +222,8 @@ class PhysicalKeyboard {
       88: "X",
       89: "Y",
       90: "Z",
-      91: "Meta",
+      91: "MetaLeft",
+      92: "MetaRight",
       96: "Numpad0",
       97: "Numpad1",
       98: "Numpad2",
@@ -261,10 +268,12 @@ class PhysicalKeyboard {
   }
 
   isModifierKey = (e: KeyboardEvent): boolean => {
+    console.log(e, e.code, e.key, this.keyCodeToKey(e?.keyCode));
     return (
       e.altKey
       || e.ctrlKey
       || e.shiftKey
+      || e.metaKey
       || ["Tab", "CapsLock", "Esc", "ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].includes(
         e.code || e.key || this.keyCodeToKey(e?.keyCode)
       )

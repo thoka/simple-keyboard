@@ -6,16 +6,6 @@ const setDOM = () => {
     <input class="input" placeholder="Tap on the virtual keyboard to start" />
     <div class="keyboardContainer">
       <div class="simple-keyboard-main"></div>
-
-      <div class="controlArrows">
-        <div class="simple-keyboard-control"></div>
-        <div class="simple-keyboard-arrows"></div>
-      </div>
-
-      <div class="numPad">
-        <div class="simple-keyboard-numpad"></div>
-        <div class="simple-keyboard-numpadEnd"></div>
-      </div>
     </div>
   `;
 };
@@ -34,49 +24,61 @@ class Demo {
       physicalKeyboardHighlight: true,
       syncInstanceInputs: true,
       mergeDisplay: true,
-      debug: true
+      debug: false,
+      physicalKeyboardHighlightPreventDefault: true
     };
 
     this.keyboard = new Keyboard(".simple-keyboard-main", {
       ...commonKeyboardOptions,
-      /**
-       * Layout by:
-       * Sterling Butters (https://github.com/SterlingButters)
-       */
       layout: {
         default: [
-          "{escape} {f1} {f2} {f3} {f4} {f5} {f6} {f7} {f8} {f9} {f10} {f11} {f12}",
-          "` 1 2 3 4 5 6 7 8 9 0 - = {backspace}",
-          "{tab} q w e r t y u i o p [ ] \\",
-          "{capslock} a s d f g h j k l ; ' {enter}",
-          "{shiftleft} z x c v b n m , . / {shiftright}",
-          "{controlleft} {altleft} {metaleft} {space} {metaright} {altright}"
+          "{escape} {f1} {f2} {f3} {f4} {f5} {f6} {f7} {f8} {f9} {f10} {f11} {f12} {home} {end} {insert} {delete}",
+          "^ 1 2 3 4 5 6 7 8 9 0 ß ´ {backspace}",
+          "{tab} q w e r t z u i o p ü +",
+          "{capslock} a s d f g h j k l ö ä # {enter}",
+          "{shiftleft} y x c v b n m , . - {shiftright}",
+          "{controlleft} {fn} {metaleft} {altleft} {space} {altgraph} {controlright} {pageup} {arrowup} {pagedown}",
+          "{arrowleft} {arrowdown} {arrowright}"
         ],
-        shift: [
-          "{escape} {f1} {f2} {f3} {f4} {f5} {f6} {f7} {f8} {f9} {f10} {f11} {f12}",
-          "~ ! @ # $ % ^ & * ( ) _ + {backspace}",
-          "{tab} Q W E R T Y U I O P { } |",
-          '{capslock} A S D F G H J K L : " {enter}',
-          "{shiftleft} Z X C V B N M < > ? {shiftright}",
-          "{controlleft} {altleft} {metaleft} {space} {metaright} {altright}"
-        ]
       },
       display: {
-        "{escape}": "esc ⎋",
-        "{tab}": "tab ⇥",
-        "{backspace}": "backspace ⌫",
-        "{enter}": "enter ↵",
-        "{capslock}": "caps lock ⇪",
-        "{shiftleft}": "shift ⇧",
-        "{shiftright}": "shift ⇧",
-        "{controlleft}": "ctrl ⌃",
-        "{controlright}": "ctrl ⌃",
-        "{altleft}": "alt ⌥",
+        "{escape}": "Esc",
+        "{tab}": "⇥",
+        "{backspace}": "⌫",
+        "{enter}": "↵",
+        "{capslock}": "⇩",
+        "{shiftleft}": "⇧",
+        "{shiftright}": "⇧",
+        "{controlleft}": "Strg",
+        "{fn}": "Fn",
+        "{controlright}": "Strg",
+        "{altleft}": "Alt",
         "{altright}": "alt ⌥",
-        "{metaleft}": "cmd ⌘",
-        "{metaright}": "cmd ⌘"
+        "{metaleft}": "⊞",
+        "{metaright}": "⊞",
+        "{f1}": "F1",
+        "{f2}": "F2",
+        "{f3}": "F3",
+        "{f4}": "F4",
+        "{f5}": "F5",
+        "{f6}": "F6",
+        "{f7}": "F7",
+        "{f8}": "F8",
+        "{f9}": "F9",
+        "{f10}": "F10",
+        "{f11}": "F11",
+        "{f12}": "F12",
+        "{home}": "Pos 1",
+        "{end}": "Ende",
+        "{insert}": "Einfg",  
+        "{delete}": "Entf",
+        "{altgraph}": "AltGr",
+        "{pageup}": "Seite↑",
+        "{pagedown}": "Seite↓"
       }
     });
+
+    /*
 
     this.keyboardControlPad = new Keyboard(".simple-keyboard-control", {
       ...commonKeyboardOptions,
@@ -115,6 +117,7 @@ class Demo {
         default: ["{numpadsubtract}", "{numpadadd}", "{numpadenter}"]
       }
     });
+    */
 
     document.querySelector(".input").addEventListener("input", () => {
       const input = document.querySelector(".input").value;
@@ -126,11 +129,11 @@ class Demo {
     document.querySelector(".input").value = input;
     this.keyboard.setInput(input);
 
-    console.log("Input changed", input);
+    console.log("🔴 Input changed", input);
   }
 
   onKeyPress(button) {
-    console.log("Button pressed", button);
+    console.log("💙 Button pressed", button);
 
     /**
      * If you want to handle the shift and caps lock buttons

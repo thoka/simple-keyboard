@@ -11,7 +11,7 @@ input {
   display: flex;
   background-color: rgba(0, 0, 0, 0.1);
   justify-content: center;
-  width: 1024px;
+  width: 700px;
   border-radius: 5px;
 }
 
@@ -20,9 +20,10 @@ input {
 }
 
 .simple-keyboard-main.simple-keyboard {
-  width: 640px;
-  min-width: 640px;
+  /* width: 700px;
+  min-width: 700px; */
   background: none;
+  font-size: 12px;
 }
 
 .simple-keyboard-main.simple-keyboard .hg-row:first-child {
@@ -78,7 +79,32 @@ input {
   flex-grow: 0;
   justify-content: center;
   display: flex;
-  align-items: center;
+  position: relative;
+}
+
+div.hg-button {
+  position: relative;
+}
+
+.hg-button span.unshifted {
+  position: absolute;
+  font-size: 12px;
+  left: 10px; bottom: 2px;
+  width: 20px; 
+}
+
+.hg-button span.shifted {
+  position: absolute;
+  top: 5px; 
+  left: 10px;
+  font-size: 12px;
+}
+
+.hg-button span.alt {
+  position: absolute;
+  font-size: 12px;
+  right: 10px; bottom: 3px;
+  
 }
 
 .numPad {
@@ -128,5 +154,23 @@ input {
 }
 
 .hg-button.hg-functionBtn.hg-button-space {
+  width: 370px;
+}
+
+.hg-button.hg-functionBtn.hg-button-space {
   width: 350px;
+}
+
+.hg-button.hg-standardBtn[data-skbtn="+"] {
+  margin-right: 50px !important;
+}
+
+div.keyboardContainer > div > div > div:nth-child(1) > div.hg-button {
+  height: 25px ;
+  font-size: 10px;   
+}
+
+
+div.keyboardContainer > div > div > div:nth-child(7) {
+  margin-left: 580px;
 }
